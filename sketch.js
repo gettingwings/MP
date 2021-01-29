@@ -38,16 +38,8 @@ function setup() {
   mango7 = new Mango(560,165);
   mango8 = new Mango(746,190);
 
-  var options = {
-    bodyA: stone.body,
-    pointB: {x:80, y:302},
-    stiffness: 0.04,
-    length: 50
-  }
-
-  thread = Matter.Constraint.create(options);
-  Matter.World.add(world, thread);
-  console.log(thread)
+  thread = new SlingShot(stone.body, {x:80, y:302});
+  //console.log(thread)
   
 }
 
@@ -74,8 +66,9 @@ function draw() {
   mango6.display();
   mango7.display();
   mango8.display();
+  thread.display();
 
-line(thread.bodyA.position.x, thread.bodyA.position.y, thread.pointB.x, thread.pointB.y);
+//line(thread.bodyA.position.x, thread.bodyA.position.y, thread.pointB.x, thread.pointB.y);
 }
 
 
@@ -84,20 +77,14 @@ function mouseDragged(){
 }
 
 function mouseReleased(){
-fly();
-}
-
-function fly(){
-
-  thread.bodyA = null;
-  //Matter.Body.applyForce(stone.body, this.body.position, {x:50, y:-60});
+thread.fly();
 }
 
 function keyPressed(){
 
   if(keyCode === 32){
     Matter.Body.setPosition(stone.body, {x:80, y:302})
-    thread.bodyA = stone.body;
-    console.log(thread.bodyA)
+    thread.attach(stone.body);
+    //console.log(thread.bodyA)
   }
 }

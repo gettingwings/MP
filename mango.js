@@ -16,7 +16,6 @@ class Mango{
         var pos = this.body.position;
         imageMode(CENTER);
         image(this.image, pos.x, pos.y, 15,15 );
-        
     }
 
 }
